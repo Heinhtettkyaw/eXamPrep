@@ -24,7 +24,8 @@ class DatabaseSeeder extends Seeder
                 'address' => 'YGN',
                 'role' => 'admin',
                 'password' => Hash::make('admin123'),
-                'gender' => 'male'
+                'gender' => 'male',
+                'dob' => '1999-01-01'
 
             ]
         );

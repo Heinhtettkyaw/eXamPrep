@@ -7,13 +7,23 @@ use Illuminate\Http\Request;
 use Laravel\Jetstream\Jetstream;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
+use Laravel\Jetstream\Rules\Role;
+use Psy\Command\WhereamiCommand;
 
 class StudentController extends Controller
 {
     //Load Student Batch Page
     public function showStudentBatch()
     {
-        return view('Admin.student_details');
+        // $students = User::select("*")->where('role', 'user')->paginate(2);
+        $students = User::when(request('searchKey'), function ($q) {
+            $key = request('searchKey');
+            $q->Where('name', 'like', '%' . $key . '%');
+        })->where('role', '=', 'user')->orderBy('id', 'asc')->paginate(3);
+
+
+
+        return view('Admin.student_details', compact('students'));
     }
     //Load add_student page
     public function showAddStudent()
