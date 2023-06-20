@@ -44,6 +44,10 @@ Route::middleware(['auth'])->group(function () {
         Route::get('/student', [StudentController::class, 'showStudentBatch'])->name('admin#showStudents');
         Route::get('/student/add', [StudentController::class, 'showAddStudent'])->name('admin#addStudent');
         Route::post('/add/students', [StudentController::class, 'addStudent'])->name('admin#studentAddTodb');
+        Route::get('/edit/student/{id}', [StudentController::class, 'loadEditStudent'])->name('admin#loadStudentEdit');
+        Route::post('/student/edit', [StudentController::class, 'editStudent'])->name('admin#editStudent');
+        Route::get('/student/delete/{id}', [StudentController::class, 'deleteStudent'])->middleware('password.confirm')->name('admin#studentDelete');
+        Route::get('/student/reset/password/{id}', [StudentController::class, 'resetPass'])->middleware('password.confirm')->name('admin#resetPassword');
     });
 
 
