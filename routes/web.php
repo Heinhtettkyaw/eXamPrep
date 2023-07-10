@@ -5,6 +5,7 @@ use App\Http\Controllers\AuthController;
 use App\Http\Controllers\ClientController;
 use App\Http\Controllers\LogoutController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\QuestionController;
 use App\Http\Controllers\StudentController;
 use App\Http\Controllers\StudentProfileController;
 
@@ -27,7 +28,7 @@ Route::middleware(['admin_auth'])->group(function () {
 
 
 
-// After AUthentication
+// After Authentication
 
 Route::middleware(['auth'])->group(function () {
 
@@ -48,6 +49,11 @@ Route::middleware(['auth'])->group(function () {
         Route::post('/student/edit', [StudentController::class, 'editStudent'])->name('admin#editStudent');
         Route::get('/student/delete/{id}', [StudentController::class, 'deleteStudent'])->middleware('password.confirm')->name('admin#studentDelete');
         Route::get('/student/reset/password/{id}', [StudentController::class, 'resetPass'])->middleware('password.confirm')->name('admin#resetPassword');
+
+        //question_bank
+        Route::get('/question_bank', [QuestionController::class, 'showQB'])->name('Admin#showQB');
+        Route::get('/question/add', [QuestionController::class, 'addQuestionPage'])->name('Admin#addQuestion');
+        Route::post('/add/question', [QuestionController::class, 'addQuestionToDB'])->name('Admin#addQuestionToDB');
     });
 
 
